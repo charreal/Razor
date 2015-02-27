@@ -1,25 +1,25 @@
 {
-    "description": "Razor is a markup syntax for adding server-side logic to web pages. This package contains the Razor parser and code generation infrastructure.",
-    "version": "4.0.0-*",
-    "frameworks": {
-        "net45": { },
-        "aspnet50": { },
-        "aspnetcore50": {
-            "dependencies": {
-                "System.Collections": "4.0.10-beta-*",
-                "System.Diagnostics.Debug": "4.0.10-beta-*",
-                "System.Diagnostics.Tools": "4.0.0-beta-*",
-                "System.IO": "4.0.10-beta-*",
-                "System.IO.FileSystem": "4.0.0-beta-*",
-                "System.Linq": "4.0.0-beta-*",
-                "System.Reflection": "4.0.10-beta-*",
-                "System.Resources.ResourceManager": "4.0.0-beta-*",
-                "System.Runtime.Extensions": "4.0.10-beta-*",
-                "System.Threading": "4.0.10-beta-*",
-                "System.Threading.Tasks": "4.0.10-beta-*",
-                "System.Threading.Thread": "4.0.0-beta-*",
-                "System.Security.Cryptography.Hashing.Algorithms": "4.0.0-beta-*"
-            }
-        }
+  "description": "Razor is a markup syntax for adding server-side logic to web pages. This package contains the Razor parser and code generation infrastructure.",
+  "version": "4.0.0-beta3",
+  "frameworks": {
+    "net45": {},
+    "aspnet50": {},
+    "aspnetcore50": {
+      "dependencies": {
+        "System.Collections": "4.0.10-beta-22605",
+        "System.Diagnostics.Debug": "4.0.10-beta-22605",
+        "System.Diagnostics.Tools": "4.0.0-beta-22605",
+        "System.IO": "4.0.10-beta-22605",
+        "System.IO.FileSystem": "4.0.0-beta-22605",
+        "System.Linq": "4.0.0-beta-22605",
+        "System.Reflection": "4.0.10-beta-22605",
+        "System.Resources.ResourceManager": "4.0.0-beta-22605",
+        "System.Runtime.Extensions": "4.0.10-beta-22605",
+        "System.Threading": "4.0.10-beta-22605",
+        "System.Threading.Tasks": "4.0.10-beta-22605",
+        "System.Threading.Thread": "4.0.0-beta-22605",
+        "System.Security.Cryptography.Hashing.Algorithms": "4.0.0-beta-22605"
+      }
     }
+  }
 }

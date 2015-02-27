@@ -1,25 +1,27 @@
 {
-    "version": "1.0.0",
-    "resources": "TestFiles/**/*",
-    "dependencies": {
-        "Moq": "4.2.1312.1622",
-        "Microsoft.AspNet.Razor": "4.0.0-*",
-        "Microsoft.AspNet.Testing": "1.0.0-*",
-        "xunit.runner.kre": "1.0.0-*"
-    },
-    "commands": {
-        "test": "xunit.runner.kre"
-    },
-    "frameworks": {
-        "aspnet50": { },
-        "aspnetcore50": {
-            "dependencies": {
-                "System.Diagnostics.TraceSource": "4.0.0-beta-*",
-                "System.Reflection.TypeExtensions": "4.0.0-beta-*"
-            }
-        }
-    },
-    "compilationOptions": {
-        "define": [ "__RemoveThisBitTo__GENERATE_BASELINES" ]
+  "version": "1.0.0",
+  "resources": "TestFiles/**/*",
+  "dependencies": {
+    "Moq": "4.2.1312.1622",
+    "Microsoft.AspNet.Razor": "4.0.0-beta3",
+    "Microsoft.AspNet.Testing": "1.0.0-beta3",
+    "xunit.runner.kre": "1.0.0-beta3"
+  },
+  "commands": {
+    "test": "xunit.runner.kre"
+  },
+  "frameworks": {
+    "aspnet50": {},
+    "aspnetcore50": {
+      "dependencies": {
+        "System.Diagnostics.TraceSource": "4.0.0-beta-22605",
+        "System.Reflection.TypeExtensions": "4.0.0-beta-22605"
+      }
     }
+  },
+  "compilationOptions": {
+    "define": [
+      "__RemoveThisBitTo__GENERATE_BASELINES"
+    ]
+  }
 }
