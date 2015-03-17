@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -172,6 +173,25 @@ namespace Microsoft.AspNet.Razor.Runtime.TagHelpers
             // Assert
             Assert.NotNull(tagHelper.ContextProcessedWith);
             Assert.Same(tagHelper.ContextProcessedWith.Items, executionContext.Items);
+        }
+
+        [Fact]
+        public async Task RunAsync_CreatesTagHelperOutput_WithProvidedEncoder()
+        {
+            // Arrange
+            var runner = new TagHelperRunner();
+            var executionContext = new TagHelperExecutionContext("p", selfClosing: true);
+            executionContext.AddHtmlAttribute("Hello", "World");
+
+            // Act
+            var tagHelperOutput = await runner.RunAsync(executionContext);
+            var output = tagHelperOutput.GenerateStartTag();
+
+            var writer = new StringWriter();
+            output.WriteTo(writer, new PseudoHtmlEncoder());
+
+            // Assert
+            Assert.Equal("<p Hello=\"HtmlEncode[[World]]\" />", writer.ToString());
         }
 
         private class ExecutableTagHelper : TagHelper

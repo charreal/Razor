@@ -1,15 +1,19 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Microsoft.AspNet.HtmlContent;
+using Microsoft.Framework.WebEncoders;
 
 namespace Microsoft.AspNet.Razor.Runtime.TagHelpers
 {
     /// <summary>
     /// Abstract class used to buffer content returned by <see cref="ITagHelper"/>s.
     /// </summary>
-    public abstract class TagHelperContent : IEnumerable<string>
+    public abstract class TagHelperContent : IEnumerable<object>, IHtmlContent
     {
         /// <summary>
         /// Gets a value indicating whether the content was modifed.
@@ -33,12 +37,7 @@ namespace Microsoft.AspNet.Razor.Runtime.TagHelpers
         /// <returns>A reference to this instance after the set operation has completed.</returns>
         public abstract TagHelperContent SetContent(string value);
 
-        /// <summary>
-        /// Sets the content.
-        /// </summary>
-        /// <param name="tagHelperContent">The <see cref="TagHelperContent"/> that replaces the content.</param>
-        /// <returns>A reference to this instance after the set operation has completed.</returns>
-        public abstract TagHelperContent SetContent(TagHelperContent tagHelperContent);
+        public abstract TagHelperContent SetContent(IHtmlContent htmlContent);
 
         /// <summary>
         /// Appends <paramref name="value"/> to the existing content.
@@ -47,12 +46,7 @@ namespace Microsoft.AspNet.Razor.Runtime.TagHelpers
         /// <returns>A reference to this instance after the append operation has completed.</returns>
         public abstract TagHelperContent Append(string value);
 
-        /// <summary>
-        /// Appends <paramref name="tagHelperContent"/> to the existing content.
-        /// </summary>
-        /// <param name="tagHelperContent">The <see cref="TagHelperContent"/> to be appended.</param>
-        /// <returns>A reference to this instance after the append operation has completed.</returns>
-        public abstract TagHelperContent Append(TagHelperContent tagHelperContent);
+        public abstract TagHelperContent Append(IHtmlContent htmlContent);
 
         /// <summary>
         /// Clears the content.
@@ -67,12 +61,14 @@ namespace Microsoft.AspNet.Razor.Runtime.TagHelpers
         public abstract string GetContent();
 
         /// <inheritdoc />
-        public abstract IEnumerator<string> GetEnumerator();
+        public abstract IEnumerator<object> GetEnumerator();
 
         /// <inheritdoc />
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
+
+        public abstract void WriteTo(TextWriter writer, IHtmlEncoder encoder);
     }
 }

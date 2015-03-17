@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
+using Microsoft.AspNet.HtmlContent;
 using Microsoft.Framework.Internal;
 
 namespace Microsoft.AspNet.Razor.Runtime.TagHelpers
@@ -47,6 +47,8 @@ namespace Microsoft.AspNet.Razor.Runtime.TagHelpers
         /// A whitespace or <c>null</c> value results in no start or end tag being rendered.
         /// </remarks>
         public string TagName { get; set; }
+
+        private bool IsTagNameNullOrWhitespace => string.IsNullOrWhiteSpace(TagName);
 
         /// <summary>
         /// The HTML element's pre content.
@@ -105,6 +107,86 @@ namespace Microsoft.AspNet.Razor.Runtime.TagHelpers
         /// The HTML element's attributes.
         /// </summary>
         public IDictionary<string, string> Attributes { get; }
+
+
+        /// <summary>
+        /// Generates the <see cref="TagHelperOutput"/>'s start tag.
+        /// </summary>
+        /// <returns><c>string.Empty</c> if <see cref="TagName"/> is <c>null</c> or whitespace. Otherwise, the
+        /// <see cref="string"/> representation of the <see cref="TagHelperOutput"/>'s start tag.</returns>
+        public IHtmlContent GenerateStartTag()
+        {
+            // Only render a start tag if the tag name is not whitespace
+            if (IsTagNameNullOrWhitespace)
+            {
+                return StringHtmlContent.Empty;
+            }
+
+            return new StartTagHtmlContent(TagName, Attributes, SelfClosing);
+        }
+
+        /// <summary>
+        /// Generates the <see cref="TagHelperOutput"/>'s <see cref="PreContent"/>.
+        /// </summary>
+        /// <returns><c>null</c> if <see cref="TagName"/> is not <c>null</c> or whitespace
+        /// and <see cref="SelfClosing"/> is <c>true</c>.
+        /// Otherwise, an <see cref="IHtmlContent"/> containing the <see cref="PreContent"/>.</returns>
+        public IHtmlContent GeneratePreContent()
+        {
+            if (!IsTagNameNullOrWhitespace && SelfClosing)
+            {
+                return null;
+            }
+
+            return _preContent;
+        }
+
+        /// <summary>
+        /// Generates the <see cref="TagHelperOutput"/>'s body.
+        /// </summary>
+        /// <returns><c>null</c> if <see cref="TagName"/> is not <c>null</c> or whitespace
+        /// and <see cref="SelfClosing"/> is <c>true</c>.
+        /// Otherwise, an <see cref="IHtmlContent"/> containing the <see cref="Content"/>.</returns>
+        public IHtmlContent GenerateContent()
+        {
+            if (!IsTagNameNullOrWhitespace && SelfClosing)
+            {
+                return null;
+            }
+
+            return _content;
+        }
+
+        /// <summary>
+        /// Generates the <see cref="TagHelperOutput"/>'s <see cref="PostContent"/>.
+        /// </summary>
+        /// <returns><c>null</c> if <see cref="TagName"/> is not <c>null</c> or whitespace
+        /// and <see cref="SelfClosing"/> is <c>true</c>.
+        /// Otherwise, an <see cref="IHtmlContent"/> containing the <see cref="PostContent"/>.</returns>
+        public IHtmlContent GeneratePostContent()
+        {
+            if (!IsTagNameNullOrWhitespace && SelfClosing)
+            {
+                return null;
+            }
+
+            return _postContent;
+        }
+
+        /// <summary>
+        /// Generates the <see cref="TagHelperOutput"/>'s end tag.
+        /// </summary>
+        /// <returns><c>string.Empty</c> if <see cref="TagName"/> is <c>null</c> or whitespace. Otherwise, the
+        /// <see cref="string"/> representation of the <see cref="TagHelperOutput"/>'s end tag.</returns>
+        public IHtmlContent GenerateEndTag()
+        {
+            if (SelfClosing || IsTagNameNullOrWhitespace)
+            {
+                return StringHtmlContent.Empty;
+            }
+
+            return StringHtmlContent.FromEncodedText(string.Format(CultureInfo.InvariantCulture, "</{0}>", TagName));
+        }
 
         /// <summary>
         /// Changes <see cref="TagHelperOutput"/> to generate nothing.

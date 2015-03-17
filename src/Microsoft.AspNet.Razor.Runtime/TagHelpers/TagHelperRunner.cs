@@ -13,6 +13,13 @@ namespace Microsoft.AspNet.Razor.Runtime.TagHelpers
     public class TagHelperRunner
     {
         /// <summary>
+        /// Instantiates a new instance of <see cref="TagHelperRunner"/>.
+        /// </summary>
+        public TagHelperRunner()
+        {
+        }
+
+        /// <summary>
         /// Calls the <see cref="ITagHelper.ProcessAsync"/> method on <see cref="ITagHelper"/>s.
         /// </summary>
         /// <param name="executionContext">Contains information associated with running <see cref="ITagHelper"/>s.
