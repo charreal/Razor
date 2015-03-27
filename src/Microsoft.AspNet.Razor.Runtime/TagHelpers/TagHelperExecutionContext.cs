@@ -138,7 +138,7 @@ namespace Microsoft.AspNet.Razor.Runtime.TagHelpers
         /// </summary>
         /// <param name="name">The HTML attribute name.</param>
         /// <param name="value">The HTML attribute value.</param>
-        public void AddHtmlAttribute([NotNull] string name, string value)
+        public void AddHtmlAttribute([NotNull] string name, object value)
         {
             HTMLAttributes.Add(name, value);
             AllAttributes.Add(name, value);
