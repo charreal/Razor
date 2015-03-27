@@ -100,7 +100,7 @@ namespace TestOutput
                     __tagHelperExecutionContext.Add(__InputTagHelper);
                     StartTagHelperWritingScope();
 #line 16 "ComplexTagHelpers.cshtml"
-Write(checkbox);
+WriteLiteral(checkbox);
 
 #line default
 #line hidden
@@ -134,7 +134,7 @@ Write(checkbox);
                 __tagHelperExecutionContext.Add(__InputTagHelper);
                 StartTagHelperWritingScope();
 #line 17 "ComplexTagHelpers.cshtml"
-Write(true ? "checkbox" : "anything");
+WriteLiteral(true ? "checkbox" : "anything");
 
 #line default
 #line hidden

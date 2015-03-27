@@ -64,7 +64,7 @@ namespace TestOutput
                 StartTagHelperWritingScope();
                 WriteLiteral("Current Time: ");
 #line 9 "TagHelpersInSection.cshtml"
-Write(DateTime.Now);
+WriteLiteral(DateTime.Now);
 
 #line default
 #line hidden
